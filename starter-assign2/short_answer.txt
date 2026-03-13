@@ -1,0 +1,106 @@
+Before submitting this file, make sure that there are no more TODO
+placeholders remaining in the file (and remove this comment too).
+
+Warmup
+------
+
+Q1. The display of the Stack in the debugger uses the labels `top` and `bottom` to mark the two ends of the stack. How are the contents labeled when the Stack contains only one element?
+A1. When the stack only contains one element, there is only one end labeled 'top' where the one element is located.
+
+Q2. For which type of inputs does the function go into an infinite loop?
+A2. The function goes into an infinite loop when it contains only negative numbers and no positive numbers.
+
+Q3. Show your edited code for `duplicateNegatives` that fixes the problem with the infinite loop.
+A3. I added an integer 'length' initialized as the length of the original queue. Since the buggy code was iterating over a queue that was increasing in size,
+    this code ensures that it only iterates through and dequeues all the original numbers in the queue.
+
+void duplicateNegatives(Queue<int>& q) {
+    int length = q.size();
+    for (int i = 0; i < length; i++) {
+        int val = q.dequeue();
+        q.enqueue(val);
+        if (val < 0) {
+            q.enqueue(val);   // double up on negative numbers
+        }
+    }
+}
+
+Q4. What is the better fix to `sumStack` that corrects the bug?
+A4. Instead of intializing the total to the first value of the stack while popping it, which assumes that the stack is not empty and has a first value,
+    we can initialize the total to be 0 and let the while loop handle all the popping of values. This would ensure that if the stack is empty,
+    we would never enter the while loop, so no values will be popped out of an empty stack.
+
+
+Maze
+----
+Q5. After you have written your test cases, describe your testing strategy to confirm that your `validatePath` operates as intended. How confident are you that it works correctly in all cases?
+A5. I wrote tests for all potential errors that can be expected: not starting at entry, not ending at exit,
+    containing non-valid moves that skip, containing non-valid moves that touch walls, containing non-valid moves off
+    the grid, and containing loops. For all the test cases, I ensured no other errors are expected to be called and
+    the call would only return that single error, so that I can ensure that checking for every specific error is correct.
+
+Q6. While BFS and DFS are equivalently capable in terms of finding a solution, the two can differ in which solution is found (when there are multiple) and how quickly a solution is discovered. An advantage of BFS is that it always finds the shortest possible solution, explain why this is guaranteed for BFS and not for DFS. An advantage of DFS is that for some mazes it will find a solution more quickly than BFS, explain how this could be so.
+A6. BFS goes through paths of increasing length, because it iterates through all shorter paths before in the queue
+    structure. However, this is not the case for the DFS method, because the stack structure means that the algorithm
+    checks the entire path, until it reaches and end, before moving onto shorter paths below in the stack.
+
+    However, DFS may find a solution quicker, because if the path it outlines first/early-on is the correct path, the
+    algorithm will have found the solution. On the other hand, BFS will have to iterate through nearly every possible
+    path of the correct path's length before reaching the solution, every time.
+
+Q7. Most students are sold on the benefit of the fancy features provided by `Vector`, `Grid`, and `Set` but the ADT skeptics may question the value of `Stack` and `Queue` ADTs, seeing them as nothing more than a restricted `Vector`. Make your best argument to convince them of the benefits these ADTS have over `Vector`.
+A7. A seen through the maze algorithm, there are specific uses for stacks and queues that are much more efficient
+    than the use of Vectors. For example, the stack enforces behavior that naturally models backtracking, which makes it
+    easier to follow the structure and logic of our code. Simialrily, the queue is able to gaurenteethe shortest
+    paths in BFS. These operations also generally make the code more readable, as we would otherwise have to iterate
+    through an unorganized vector of all possible paths, while editing such vector with new paths.
+
+
+Search Engine
+-------------
+Q8. Sketch the contents of the inverted index built from the `res/tiny.txt` database file.
+A8.
+    {
+    "10" : {"www.dr.seuss.net"},
+    "5lbmms" : {"www.shoppinglist.com"},
+    "blue" : {"www.dr.seuss.net", "www.rainbow.org"},
+    "bread" : {"www.shoppinglist.com"},
+    "eat" : {"www.bigbadwolf.com"},
+    "fish" : {"www.bigbadwolf.com", "www.dr.seuss.net", "www.shoppinglist.com"},
+    "green" : {"www.rainbow.org"},
+    "i" : {"www.bigbadwolf.com"},
+    "milk" : {"www.shoppinglist.com"},
+    "one" : {"www.dr.seuss.net"},
+    "red" : {"www.dr.seuss.net", "www.rainbow.org"},
+    "two" : {"www.dr.seuss.net"}
+    }
+
+
+Beyond Algorithmic Analysis
+---------------------------
+Q9. In a short paragraph, describe a real or plausible scenario not previously presented in lecture in which using techniques like benchmarking or counting "write" steps to improve the performance of an algorithm might benefit Earth's environment. Include your thoughts on how a software engineer working on this piece of code might identify such potential benefits and take them into consideration when designing the code.
+A9. Benchmarking and counting the number of writes could help optimize the energy grid for a city.
+    For example, by processing more data in a quicker period of time, software can reroute energy
+    distribution quicker and catch up on inefficiencies quicker. By rerouting energy and updating the grid
+    quicker, the system can reduce energy use congestion in a city and cut the amount of energy lost by
+    reducing the length of the path that the energy travels. This also means that the system will optimize
+    energy use, which positively impacts the environment and reduces the loss of energy in a city.
+
+Q10. According to the contract that IBM struck with the state of Indiana, the criteria for optimization were improving efficiency of the overall welfare system and reducing fraud. Criteria for reducing wait times and wrongful denials were not included.  However, wrongfully denying benefits has a huge negative  impact on the citizens who rely on the system.  If criteria like minimizing wrongful denials were not included in the contract, should engineers have included them in their optimization algorithm?  Why or why not?
+A10. Yes, engineers still should have included criteria to minimize wrongful denials, even if not included
+     in the contract for optimization. This is because optimizing at the cost of wellfare causes harm, and
+     is ultimately not efficient since it does not align with the purposes of the service, which is to help
+     people recieve their benefits. Engineers responsible for designing this service have the responsibility
+     to raise awareness of these issues and advocate for the inclusion of criteria that reduces wait times
+     and avoids wrongful denials, so that the service operates as intended and does not cause harm in the
+     name of being efficient.
+
+Q11. Review the Twitter image cropping algorithm we talked about at the end of Lecture 6. The algorithm that was used was a measure of the amount of information in an area of an image that uses Claude Shannon's concept of "information" as entropy, or in this case, the amount of contrast between adjacent pixels of the image. This algorithm is a quick and easy one to implement, as far as image analysis algorithms go. But it clearly had a terrible outcome when applied to images of people. Imagine that you took CS106B several years ago, and after completing CS106B, you were hired at Twitter as an engineer working on the image cropping system. How might you have approached setting the goals of this system? Is there a way you could design the procedures for code testing and release in your group to avoid the severe negative impacts on users of the system that are outlined in the case study?
+A11. I would have set the coals of the system to also include faireness that does not systematically
+     disadvantage certain groups. For code testing and release, I would test the algorithm on
+     different contexts such as skin tone to ensure that the algorithm does not discriminate.
+     In these cases, I would ensure that it accurately crops an image but also does not
+     disproportionately crop certain people of a certain group. I would also ensure that the user of this
+     algorithm can also override and propose new ways to crop the image, if they feel that the cropping
+     is discriminating. Upon release, I would track the algorithm to see if it produces biased results
+     in different contexts, such as demographic groups.

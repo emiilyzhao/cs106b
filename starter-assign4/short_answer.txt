@@ -1,0 +1,45 @@
+Before submitting this file, make sure that there are no more TODO
+placeholders remaining in the file (and remove this comment too).
+
+Warmup
+------
+Q1. What is the value of `totalMoves` after stepping over the call to `moveTower` in `hanoiAnimation`?
+A1. totalMoves is 0 before moveTower is run, and 15 after moveTower is run.
+
+Q2. What is the value of the `totalMoves` variable after stepping over the first recursive sub-call? (In other words, within `moveTower` just after stepping over the first recursive sub-call to `moveTower` inside the `else` statement.)
+A2. totalMoves is 7 after stepping over the first recursive sub-call.
+
+Q3. After breaking at the base case of `moveTower` and then choosing Step Out, where do you end up? (What function are you in, and at what line number?) What is the value of the `totalMoves` variable at this point?
+A3. After stepping out, we end up on the else part of the recursive function,
+    on line 67 of function moveTower. The value of totalMoves is 1 at this point.
+
+Q4. What is the smallest possible input that you used to trigger the bug in the program?
+A4. {1} would trigger the bug in the program, because {0} would not trigger a bug.
+
+Q5. Identify the one-character error in the code and explain why that one-character bug causes the function to return the output you see when running on the minimal input you listed above. You should be able to specifically account for how the error causes the result to change from “completely correct” to “terribly wrong.”
+A5. The one-character error is using += instead of =. This changes the value of variable
+    soFar itself, and thus causes both recursive functions to call this modified sum
+    which is incorrect. The function would then undercount subsets, like returning 0
+    instead of 1 for the example {1} stated above.
+
+Voting
+------
+Q13: Include the data from your execution timing and explain how is supports your Big O prediction for computePowerIndex.
+A13:
+
+        N       time (s)
+        25      5.175
+        26      10.950
+        27      22.016
+        28      78.975
+        29      98.393
+
+     This supports my Big O calculation of O(N*2^N), because when N is smaller, the execution time
+     appears to double. However, when N increases, this trend weakens. This is because for N
+     blocks, computePowerIndex explores n-1 blocks, not N. This gives an exponental rise in
+     computation time.
+
+Q14: Use the timing and Big O to predict how long it would take to compute the power index for the 51 voting blocks in the US electoral system.
+A14: Since each increment of 1 to N roughly doubles the computation time until N = 27 where
+     time = 22 secs, and from there scales by 2^N-1, the  computation time would be
+     22.016*(51/27)*2^24 or about 8075 days.

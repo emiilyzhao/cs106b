@@ -1,0 +1,11 @@
+r3c3
+A=a B=b C=c D=d
+A-C-a-d.png
+A-b-D-b.png
+B-C-a-C.png
+B-d-c-A.png
+C-A-c-A.png
+c-D-b-a.png
+c-d-B-D.png
+D-a-b-B.png
+d-d-C-b.png

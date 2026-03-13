@@ -1,0 +1,11 @@
+r3c3
+RED=red YELLOW=yellow BLUE=blue GREEN=green
+red-yellow-RED-BLUE-1.png
+BLUE-yellow-red-GREEN-2.png
+YELLOW-red-blue-GREEN-3.png
+blue-RED-YELLOW-green-4.png
+blue-green-RED-YELLOW-5.png
+red-blue-GREEN-YELLOW-6.png
+green-yellow-RED-BLUE-7.png
+YELLOW-green-blue-GREEN-8.png
+yellow-GREEN-RED-blue-9.png

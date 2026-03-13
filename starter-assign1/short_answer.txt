@@ -1,0 +1,93 @@
+Perfect Numbers
+---------------
+
+Q1. Roughly how long did it take your computer to do the search? How many perfect numbers were found and what were they?
+A1. About 1.5 second. Found 4 perfect numbers: 6, 28, 496, 8128
+
+Q2. Make a table of the timing results for `findPerfects` that you observed. (old-school table of text rows and columns is just fine)
+A2.     size            time (secs)
+        20000           0.256
+        40000           0.984
+        80000           3.922
+        160000          15.054
+
+Q3. Does it take the same amount of work to compute `isPerfect` on the number 10 as it does on the number 1000? Why or why not? Does it take the same amount of work for `findPerfects` to search the range of numbers from 1-1000 as it does to search the numbers from 1000-2000? Why or why not?
+A3. Computing isPerfect will take longer for 1000 than for 10, because isPerfect calls divisorSum,
+    which iterates from 0 to n-1. divisorSum will take longer for a larger number.
+    findPerfects will take longer for 1000-2000 than 1-1000, because it calls isPerfect for each number in the range.
+    Since isPerfect takes longer for larger numbers, findPerfects will take longer to compute the higher range.
+
+Q4. Extrapolate from the data you gathered and make a prediction: how long will it take `findPerfects` to reach the fifth perfect number?
+A4. Plotting the data on desmos, we get y=(5.5879x10^-10)*(x^2)+0.0000052571x-0.09 the equation
+    for the computation time as y and the input size as x. Plugging 33 million, around where
+    the fifth digit is, as x into this equation, we get 608695.7043 sec, or 10144.928405 minutes.
+
+Q5. Do any of the tests still pass even with this broken function? Why or why not?
+A5. Yes, 2 of the 6 provided tests are still passed. This is because the test is testing for numbers
+    that are not perfect. Setting total to 1 means that the divisor sum is one greater than the
+    actual divisor sum. Therefore, the non-perfect numbers are still non-perfect. The time trial
+    still works, because the function still runs, so findPerfects still iterates through all
+    the input sizes.
+
+Q6. Explain your testing strategy for `smarterSum` and how you chose your specific test cases that lead you to be confident the function is working correctly.
+A6. I tested the values 1, 6, 12, and 25. I tested 1 to ensure that the divisor sum doesn't
+    include the value itself and returns 0. 6 is a perfect number while 12 is not a perfect number,
+    so they were tested to ensure the function works for both types of numbers. 25 is a square
+    number, so it was tested to ensure that if the divisor and the pairwise number are the same,
+    the same number is not added twice to the sum.
+
+Q7. Record your timing results for `findPerfectsSmarter` into a table.
+A7.     size            time (secs)
+        1875000         3.862
+        3750000         10.548
+        7500000         29.319
+        15000000        81.506
+
+Q8. Make a prediction: how long will `findPerfectsSmarter` take to reach the fifth perfect number?
+A8. Plotting the data values from above in desmos, we get y=(1.86858x10^-13)*x^2+0.00000277788x-2.18283
+    as the relationship between computation time as y and input size as x. Plugging in an input
+    size of 33 million, around where the fifth digit is, gives 292.975572 sec, or around 4.8829262
+    minutes, as the computation time.
+
+
+Q9. Explain how you chose your specific test cases and why they lead you to be confident `findNthPerfectEuclid` is working correctly.
+A9. I choose the test cases of the first 4 known perfect numbers 6, 28, 496, 8128. Along with being perfect, these numbers should
+    work alongside the isPerfect function, which should return true because they are perfect. Since the function assumes all inputs are
+    positive, an input of 1 is the edge-case test. Finding the 3rd and 4th perfect numbers is also  necessary to verify that the
+    function counts the perfect numbers correctly in relation to the Mersenne numbers. I also tested -1 and 0, expected to return zero
+    because the function does not take 0s and negative numbers.
+
+
+Soundex
+-------
+
+Q10. What is the Soundex code for "Angelou"? What is the code for your own surname?
+A10. A524. The code for my surname "Zhao" is Z000.
+
+Q11. Before writing any code, brainstorm your plan of attack and sketch how you might decompose the work into smaller tasks. Briefly describe your decomposition strategy.
+A11. Remove all non-letter digits. Convert to upper-case and then encode all the letters.
+     Remove duplicated digits. Change first digit to upper-case letter. Remove zero digits.
+     Pad with 0s or truncate for a size of 4 digits.
+
+
+Q12. Think about one or more examples of a class of names that the Soundex system might not work well for. Explain what this class of names is and why the system might incorrectly group them or mis-categorize one of the names.
+A12. Names that are from non-English backgrounds, such as many Asian, African, or
+     East European names, may have different pronounciations that differ from English.
+     These names would be misrepresented by Soundex. For example, since Soundex generally
+     encodes only consonant sounds, non-English names that rely on the different vowel
+     sounds may be misrepresented as similar even when they are differently pronounced.
+
+Q13. Suppose you are a software engineer working for the U.S. government. You have been tasked with implementing a system that collects names as part of the Census survey and analyzes these names using a phonetic algorithm. Your boss suggests using Soundex and notes that the algorithm is only expected to work for ASCII-encoded strings, since supporting Unicode would require extra work and time. What would your response be and why? What representational harms might result from building a system that exclusively uses Soundex and/or ASCII?
+A13. I would respond that this would both result in misclassifications and an ethically
+     flawed census. The US is composed of people with a diversity of names, and the census
+     should accomodate for this. Additionally, since ASCII cannot represent alternative
+     characters, the only way to add such names to the database would be to corrupt the
+     data by removing characters, which would result in misclassifications. I would also
+     propose that if the algorithm is only expected to work on ASCII, we can develop an
+     alternative way to losslessly transcibe and phonetically match names in the context
+     of the language in which the name comes from.
+
+     A system that exclusively uses Soundex/ASCII creates representational harms like
+     assimilation as people's names are forced to fit within English contexts, or
+     unequal representation as more minority non-english or immigrant communities have
+     increased errors in the census records.

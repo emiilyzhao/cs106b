@@ -1,0 +1,11 @@
+r3c3
+A=a B=b C=c D=d
+A-C-a-d-annotated.png
+A-b-D-b-annotated.png
+B-C-a-C-annotated.png
+B-d-c-A-annotated.png
+C-A-c-A-annotated.png
+c-D-b-a-annotated.png
+c-d-B-D-annotated.png
+D-a-b-B-annotated.png
+d-d-C-b-annotated.png

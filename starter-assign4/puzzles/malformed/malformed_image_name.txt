@@ -1,0 +1,7 @@
+r3c1
+RED=red YELLOW=yellow BLUE=blue GREEN=green
+red-yellow-RED-BLUE-1.png
+BLUE-yellow-red-GREEN-2.png
+     # image filename expected to have format sideN-sideE-sideS-sideN
+     # filename below will be rejected
+NameWithoutSides.png

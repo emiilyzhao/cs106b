@@ -1,0 +1,5 @@
+r3c1
+RED=red YELLOW=yellow BLUE=blue GREEN=green
+red-yellow-RED-BLUE-1.png
+YELLOW-red-blue-GREEN-3.png
+non-existent-image-file.png

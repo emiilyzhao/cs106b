@@ -1,0 +1,7 @@
+r2c2
+A=a B=b C=c D=d
+A-C-a-d-annotated.png
+B-d-c-A-annotated.png
+c-d-B-D-annotated.png
+d-d-C-b-annotated.png
+

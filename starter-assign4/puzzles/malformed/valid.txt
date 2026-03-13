@@ -1,0 +1,16 @@
+# valid file, including comments and extra whitespace
+
+ r1c3
+
+# comment
+# comment
+   RED=red    YELLOW=yellow    BLUE=blue  GREEN=green
+
+red-yellow-RED-BLUE-1.png
+
+    BLUE-yellow-red-GREEN-2.png
+
+
+YELLOW-red-blue-GREEN-3.png
+# more comment lines
+

@@ -1,0 +1,160 @@
+Before submitting this file, make sure that there are no more TODO
+placeholders remaining in the file (and remove this comment too).
+
+Warmup
+------
+
+Q1. Looking at a call stack listing in a debugger, what is the indication that the program being debugged uses recursion?
+A1. The stack listing has multiple levels each calling
+    the same function. This means that the function is
+    being called within different "stack" levels, and
+    is calling itself in each stack.
+
+Q2. Subtract the innermost level number from the outermost to get the maximum count of stack frames that fit in the capacity of the call stack. How many stack frames fit in your system's call stack?
+A2. My system's call stack fits 16677 stack frames.
+
+Q3. Describe how the symptoms of infinite recursion differ from the symptoms of an infinite loop.
+A3. An infinite loop won't terminate running the test,
+    but the infinite recursion will eventually terminate
+    the test when the maximum number of stack frames
+    have been filled (the recursive function was called
+    the maximum number of times) and the output tab
+    prints a forced termination.
+
+Q4. In place of selecting values over a defined range, an alternate approach would be to randomly select values for base and exponent. Such a test case would test something different each time you ran it. This test approach is part of a larger approach known as "fuzz" testing. What do you see as possible benefit and downside of randomness being used in a test case?
+A4. A benefit to randomness is it may cover conditions
+    that you don't expect, if you do not write comprehensive
+    test cases. This is because fuzzing tests more
+    than the assumptions that are given in explicitly
+    written cases. However, fuzzing is not
+    reproducible, so call conditions that result in
+    errors must be noted manually. Additionally, it
+    may not return results for edge cases that must
+    be comprehensively tested. Because of this, fuzzing
+    tests are likely not as reliable when used alone.
+
+Q5. What was the number of iterations of `recPower` did it take on your system to amount to a quarter second? Copy/paste the time results of the two time trial sequences running on that number of iterations.
+A5. It took 20000000 iterations of 'recPower' for my
+    system to output a quarter of a second.
+
+Correct (PROVIDED_TEST, line 91) Time trial recPower, double base, keep exp constant
+    Line 93 TIME_OPERATION manyPowerCalls(size, 5) (size = 4) completed in 0.242 secs
+    Line 93 TIME_OPERATION manyPowerCalls(size, 5) (size = 8) completed in 0.239 secs
+    Line 93 TIME_OPERATION manyPowerCalls(size, 5) (size = 16) completed in 0.239 secs
+    Line 93 TIME_OPERATION manyPowerCalls(size, 5) (size = 32) completed in 0.239 secs
+    Line 93 TIME_OPERATION manyPowerCalls(size, 5) (size = 64) completed in 0.239 secs
+    Line 93 TIME_OPERATION manyPowerCalls(size, 5) (size = 128) completed in 0.235 secs
+
+Correct (PROVIDED_TEST, line 97) Time trial recPower, keep base constant, double exp
+    Line 99 TIME_OPERATION manyPowerCalls(size, 5) (size = 4) completed in 0.217 secs
+    Line 99 TIME_OPERATION manyPowerCalls(size, 5) (size = 8) completed in 0.272 secs
+    Line 99 TIME_OPERATION manyPowerCalls(size, 5) (size = 16) completed in 0.343 secs
+    Line 99 TIME_OPERATION manyPowerCalls(size, 5) (size = 32) completed in 0.519 secs
+    Line 99 TIME_OPERATION manyPowerCalls(size, 5) (size = 64) completed in 0.580 secs
+    Line 99 TIME_OPERATION manyPowerCalls(size, 5) (size = 128) completed in 0.649 secs
+
+Q6. Explain how the recursive structure of `recPower` results in a Big-O runtime of `O(lgN)` relative to the size of its `exp` argument.
+A6. Each recursive call reduces the exponent by half, so the number of calls that the
+    program must make grows logarithmically, alongside the size of exp.
+
+
+Balanced
+--------
+
+Q7. Compare your recursive solution to the iterative approach used for the Check Balance problem in [Section 1][section1]. Which version do you find easier to read and understand? In which version did you find it easier to confirm the correct behavior?
+A7. I find the checkBalance version easier to read and understand, because usiing the stack made it easier to match up
+    corresponding openers and closers in nested cases, whereas in operatorsAreMatched, I
+    had to deal with the "interior" depth of the operators. Because of this, I also
+    found this easier to confirm correctness. I can go through character by character
+    in the debugger, rather than iterating thorugh functions calling each other.
+
+Merge
+-----
+
+Q8. Give a rough estimate of the maximum length sequence that could be successfully merged on your system assuming a recursive implementation of `binaryMerge`.
+A8. My system's call stack fits 16677 stack frames. If each recursive would only compare
+    the top two elements and return one element, each stack frame would only add one element
+    to the final sequence. Therefore, the maximum length sequence that could be merged
+    would be 16677 elements.
+
+Q9. What would be the observed behavior if attempting to recursively merge a sequence larger than that maximum?
+A9. If we try to recursively merge a sequence larger than the maximum, the system would
+    experience a stack overflow. This causes the program to crash or terminate abruptly
+    before completing execution, rather than stopping when intended and producing the
+    correct output. This happens when all available stack frames are filled. The output tab
+    will print a forced termination before the program is finished executing.
+
+Q10. Include the data from your execution timing and explain how it supports your Big O prediction for `binaryMerge`.
+A10.
+
+    Size            Time
+    5000000         0.286 secs
+    10000000        0.580 secs
+    20000000        1.168 secs
+    40000000        2.341 secs
+    80000000        4.701 secs
+
+    This supports my prediction of O(N) because doubling the input size doubles the time that
+    it takes to run the program, as seen in the data.
+
+Q11. Include the data from your execution timing and explain how it supports your Big O prediction for `naiveMultiMerge`.
+A11.
+
+    different sized queues (constant k=1)
+
+    Size (n)        Time
+    5000000         0.352 secs
+    10000000        0.707 secs
+    20000000        1.409 secs
+    40000000        2.849 secs
+    80000000        5.677 secs
+
+    This verifies that O(N) for N. Doubling input size N doubles the time it takes
+    to run the program, as seen in the data.
+
+    different number of queues (constant n=1000)
+
+    Size (k)        Time
+    32              0.045 secs
+    64              0.117 secs
+    128             0.710 secs
+    256             2.817 secs
+    512             10.976 secs
+
+    This verifies that O(K^2) for K. Doubling input size k increases the time it takes
+    to run the program by k^2 = 2^2 = 4, as seen in the data.
+
+Q12. Include the data from your execution timing and explain how it demonstrates `O(n log k)` runtime for `recMultiMerge`.
+A12.
+
+    different sized queues (constant k=1)
+
+    Size (n)        Time
+    5000000         0.124 secs
+    10000000        0.249 secs
+    20000000        0.496 secs
+    40000000        0.985 secs
+    80000000        2.018 secs
+
+    different number of queues (constant n=1000)
+
+    Size (k)        Time
+    32              0.017 secs
+    64              0.041 secs
+    128             0.093 secs
+    256             0.213 secs
+    512             0.478 secs
+
+    This verifies that O(n logk).
+
+    When input size k is kept constant, the time it takes to run the program doubles for doubling n, so O(N).
+
+    When the input size n is kept constant, the time it takes to run the program scales up by log(k), as
+    doubling the input size k leads to the runtime scaling up by log2k, so O(log(K))
+
+    Putting these two results together gives O(Nlog(K)).
+
+Q13. You run `recMultiMerge` on a sequence of size 1 million and see that it completes just fine. Explain why this is not running afoul of the call stack capacity limitation.  _Hint_: How many stack frames (levels) are expected to be on the call stack at the deepest point in the recursion in `recMultiMerge`?
+A13. recMultiMerge recurses by splitting the queues in half for each call, which correlates with log2K
+     stack frames possible, rather than N. With N = 1 million, the most frames is still going to be log2K,
+     so the recursive call stack is less deep.

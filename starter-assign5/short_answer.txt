@@ -1,0 +1,73 @@
+Q1:
+
+_id is constant, while _x and _y change by _vy and _vx. Depending on the last
+wall that the ball hits, _x += _vx or _x -= _vx and _y += _vy or _y -= _vy.
+If the last horizontal wall hit was the left wall, the value is added, and
+if the last vertical wall hit was the bottom wall, the value is added.
+The opposite applies for the opposite walls, where the value is subtracted.
+
+Q2:
+
+The ball is "stuck" on the righthand wall. _vx is switching betwwen -2 and 2,
+which means _x is stuck between 506 and 508. _y is operating correctly, as 
+_vy is constant.
+
+Q3:
+
+The ball is no longer stuck, and moves normally. _vx and _vy are constant,
+and the ball operates in the same manner as intended.
+
+Q4:
+
+Writes to nullptr address:
+The Tone_Matrix program has terminated unexpectedly (crashed)
+*** A segmentation fault (SIGSEGV) occurred during program execution
+
+    This error indicates your program attempted to dereference a pointer
+    to an invalid memory address (possibly out of bounds, deallocated, nullptr, ...)
+
+access indexes beyond array bounds:
+13:13:33: Starting /Users/emilyzhao/Downloads/CS 106B/PSETs/starter-assign5/Tone_Matrix.app/Contents/MacOS/Tone_Matrix...
+13:14:37: Requesting process to stop...
+13:14:37: The command "/Users/emilyzhao/Qt/Qt Creator.app/Contents/Resources/libexec/disclaim '/Users/emilyzhao/Downloads/CS 106B/PSETs/starter-assign5/Tone_Matrix.app/Contents/MacOS/Tone_Matrix'" was canceled after 64390 ms.
+
+deletes same memory address twice:
+The Tone_Matrix program has terminated unexpectedly (crashed)
+*** An abort error (SIGABRT) was raised during program execution
+
+    This error is raised by system functions that detect corrupt state
+
+accesses memory after it was deleted:
+13:16:21: Starting /Users/emilyzhao/Downloads/CS 106B/PSETs/starter-assign5/Tone_Matrix.app/Contents/MacOS/Tone_Matrix...
+FAIL: Provided Test: Test case that accesses memory after it was deleted
+       Line 93: EXPECT_EQUAL failed: taskList[0].label != "sleep"
+               taskList[0].label = ""
+
+Q5:
+
+if sample rate is 8000 Hz, and string vibrates at 1000 Hz, there are 8 values in the array.
+
+first created:
+[0, 0, 0, 0, 0, 0, 0, 0]
+plucked:
+[0.05, 0.05, 0.05, -0.05, -0.05, -0.05, -0.05]
+
+Q6:
+
+for each call, we update values based on the formula provided:
+
+initial:        [0.05, 0.05, 0.05, -0.05, -0.05, -0.05, -0.05]
+first call:     [0.04975, 0.05, 0.05, -0.05, -0.05, -0.05, -0.05]
+second call:    [0.04975, 0.04975, 0.05, 0.05, -0.05, -0.05, -0.05, -0.05]
+third call:     [0.04975, 0.04975, 0.04975, 0.05, -0.05, -0.05, -0.05, -0.05]
+fourth call:    [0.04975, 0.04975, 0.04975, 0, -0.05, -0.05, -0.05, -0.05]
+
+Q7:
+
+The amplitude would change, as it would be 5x larger. Frequency and shape
+would not change, because frequency depends on the buffer length, which doesn't change
+and shape would not change because it is dependent on the scaling of the array, which
+also doesn't change. Filling with +-0.25 would result the same pitched wave, but louder.
+
+
+

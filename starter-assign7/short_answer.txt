@@ -1,0 +1,72 @@
+Q1. Use the above encoding tree to decode the bit sequence `0101100011`.
+A1. MOONS
+
+Q2. Prepare a table for the above encoding tree that lists each character with its assigned bit sequence.
+Use your table to encode the string `"SONS"`.
+A2. N: 00
+    M: 010
+    S: 011
+    O: 1
+
+    SONS: 011100011
+
+Q3. Huffman codes obey the _prefix_ property: no character's encoded bit sequence is a prefix of any other.
+What feature of an encoding tree demonstrates that it obeys the prefix property?
+A3. The characters are associated with leaves, which all have paths that follow prefix property as
+    each leaf shows the end of a path so it cannot be the prefix of another code/leaf.
+
+Q4. Flatten the encoding tree above on the right into its sequence of bits (tree shape) and sequence of characters (tree leaves).
+A4. 1101000
+
+Q5. Unflatten the sequences `110100100` (tree shape) and `FLERA` (tree leaves) to reconstruct the original encoding tree.
+A5              *
+        *               *
+    F       *       R       A
+        L       E
+
+Q6. Construct a Huffman coding tree for the input `"BOOKKEEPER"`.
+A6. letters: BOKEPR
+
+                *
+        *               *
+    O       *       E       *
+        B       K       P       R
+
+encoded structure: 11010010100
+
+Q7. Calculate the entropy of your Huffman tree for `"BOOKKEEPER"`.
+Confirm that if you had chosen to break ties in a different manner when constructing the tree,
+this alternate tree has the same entropy as the optimal result.
+A7. B: 010
+    O: 00
+    K: 011
+    E: 10
+    P: 110
+    R: 111
+
+    total weighted length: 1(3) + 2(2) + 2(3) + 3(2) + 1(3) + 1(3) = 25
+    entropy: 25/10 = 2.5
+
+Since B/P/R have the same frequency of 1 and O/K have the same frequency of 2, we can switch the
+characters with other characters that have the same frequency, and expect the same entropy result.
+This is because I constructed the tree with frequency in mind, ensuring that the characters with
+highest frequency have the shortest encoded lengths to preserve efficiency.
+
+Q8. Consider the space of inputs of length 1000 that consists of varied occurrences of 100 distinct characters.
+Of those various inputs, contrast which inputs result in a balanced Huffman tree versus those that produce a
+very lopsided Huffman tree. As an example, what if each of the 100 characters were represented 10 times
+(for a total of 1000 characters)? What would the Huffman tree look like?
+What if, instead, 99 of the characters was represented only once, but the remaining character was represented 901 times (again, for a total of 1000 characters)? What would the Huffman tree look like?
+Which of the two Huffman trees achieves more significant compression?
+What does this tell you about what makes for a "good" versus "bad" Huffman tree?
+A8. Huffman trees are constructed depending on character frequency for efficiency.
+    If 100 distinct characters each appear 10 times, then they all have the same frequency,
+    which would produce and optimal Huffman tree that is balanced, since no specific character
+    should be encoded shorter than the others.
+    However, if 99 characters appear once and 1 character appears 901 times, then the Huffman
+    tree would be very lopsided. The one character appearing 901 times would have a very short
+    encoding, while the other characters would have longer encodings. While this may not look
+    balanced, it would be most efficient becase the Huffman tree is constructed based on
+    frequency, rather than visual balance like BSTs. A "good" Huffman tree minimizes the
+    weighted average code, or entropy, by making more frequent characters have shorter codes.
+
